@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import pizza2 from "../../Assets/pizza2.jpg";
+import Pizza from "../../Assets/Pizza.jpg";
 
 export const HeroContainer = styled.div`
   background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)),
-    url(${pizza2});
+    url(${Pizza});
   height: 100vh;
   background-position: center;
   background-size: cover;
@@ -17,6 +17,7 @@ export const HeroContent = styled.div`
 `;
 
 export const HeroItems = styled.div`
+  float: right;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,7 +27,7 @@ export const HeroItems = styled.div`
   padding: 0 2rem;
   width: 650px;
   color: #fff;
-  text-transform: uppercase;
+  text-transform: ;
   line-height: 1;
   font-weight: bold;
 
@@ -36,14 +37,14 @@ export const HeroItems = styled.div`
 `;
 
 export const HeroH1 = styled.h1`
-  font-size: clamp(2.5rem, 10vw, 4rem);
+  font-size: clamp(2.5rem, 10vw, 3.5rem);
   margin-bottom: 1rem;
   box-shadow: 3px 5px #e9ba23;
   letter-spacing: 3px;
 `;
 
 export const HeroP = styled.p`
-  font-size: clamp(2.5rem, 10vw, 4rem);
+  font-size: clamp(2.5rem, 10vw, 3rem);
   margin-bottom: 2rem;
 `;
 
