@@ -4,8 +4,8 @@ export const ProductContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
   padding: 5rem calc((100vw - 1300px) / 2);
-  background: #150f0f;
-  color: #fff;
+  background: #fff;
+  color: #000;
 `;
 
 export const ProductWrapper = styled.div`
@@ -59,6 +59,7 @@ export const ProductPrice = styled.p`
 export const ProductButton = styled.button`
   font-size: 1 rem;
   padding: 1rem 4rem;
+  margin: 1rem;
   border: none;
   background: #e31837;
   color: #fff;

@@ -1,4 +1,11 @@
 import React from "react";
+import {
+  customizeSize,
+  SauceAndCheese,
+  VegToppings,
+  meatToppings,
+  extraFlavour,
+} from "../DropDown_Cust/Data";
 // import Data from "./Data";
 import {
   ProductContainer,
@@ -12,6 +19,8 @@ import {
   ProductPrice,
   ProductButton,
 } from "./ProductElements";
+import CustomizeList from "../DropDown_Cust/index";
+
 const Products = ({ heading, data }) => {
   return (
     <ProductContainer>
@@ -25,11 +34,19 @@ const Products = ({ heading, data }) => {
                 <ProductTitle>{product.name}</ProductTitle>
                 <ProductDesc>{product.desc}</ProductDesc>
                 <ProductPrice>{product.price}</ProductPrice>
+                <CustomizeList
+                  DataS={customizeSize}
+                  DataSauceCheese={SauceAndCheese}
+                  DataVegTs={VegToppings}
+                  DataMeatTs={meatToppings}
+                  DataExtraF={extraFlavour}
+                />
                 <ProductButton>{product.button}</ProductButton>
               </ProductInfo>
             </ProductCard>
           );
         })}
+        {/* <DropDownCust DataS={customizeSize} DataSauceCheese={SauceAndCheese} DataVegTs={VegToppings} DataMeatTs={meatToppings} DataExtraF={extraFlavour} /> */}
       </ProductWrapper>
     </ProductContainer>
   );
