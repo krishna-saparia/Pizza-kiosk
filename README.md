@@ -1,6 +1,7 @@
 # Pizza-kiosk
 
 This project was bootstrapped with create-react-app and styled components.
+
 In this app, You can make your customizable pizza with different toppings and different types.
 
 ## Available Scripts
