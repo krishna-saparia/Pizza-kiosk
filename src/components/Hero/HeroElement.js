@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Pizza from "../../Assets/Pizza.jpg";
+import { Link } from "react-scroll";
 
 export const HeroContainer = styled.div`
   background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1)),
@@ -48,13 +49,14 @@ export const HeroP = styled.p`
   margin-bottom: 2rem;
 `;
 
-export const HeroBtn = styled.button`
+export const HeroBtn = styled(Link)`
   font-size: 1.4rem;
   padding: 1rem 4rem;
   border: none;
   background: #e31837;
   color: #fff;
   transition: 0.2s ease-out;
+  cursor: pointer;
 
   &:hover {
     background: #ffc500;

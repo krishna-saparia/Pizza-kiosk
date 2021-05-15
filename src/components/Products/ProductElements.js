@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-scroll";
 export const ProductContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
@@ -56,14 +56,19 @@ export const ProductPrice = styled.p`
   font-size: 2rem; ;
 `;
 
-export const ProductButton = styled.button`
-  font-size: 1 rem;
+export const ProductButton = styled(Link)`
+  display: block;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  width: 30%;
+  font-size: 1.6rem;
   padding: 1rem 4rem;
-  margin: 1rem;
   border: none;
   background: #e31837;
   color: #fff;
   transition: 0.2 ease-out;
+  cursor: pointer;
 
   &:hover {
     background: #ffc500;

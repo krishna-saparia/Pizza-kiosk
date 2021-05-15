@@ -1,13 +1,20 @@
 import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
 import { makeStyles } from "@material-ui/core/styles";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+import IconButton from "@material-ui/core/IconButton";
 import ListItemText from "@material-ui/core/ListItemText";
+import Button from "@material-ui/core/Button";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
+import { Box } from "@material-ui/core";
+import { products_data } from "../Products/Data";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,19 +27,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomizeList = ({
-  DataS,
-  DataSauceCheese,
-  DataVegTs,
-  DataMeatTs,
-  DataExtraF,
-}) => {
+const CustomizeList = observer(({ productIndex }) => {
   const classes = useStyles();
+  // const [open, setOpen] = useState("");
   const [open, setOpen] = useState(false);
   // const [secondary, setSecondary] = useState(true);
 
-  const handleClick = () => {
-    setOpen(!open);
+  const handleClick = (index) => {
+    if (open === index) {
+      setOpen("");
+    } else {
+      setOpen(index);
+    }
+    // setOpen(!open);
   };
   return (
     <List
@@ -45,151 +52,80 @@ const CustomizeList = ({
       }
       className={classes.root}
     >
-      {/* {DataType.map((type, index) => {
-          return(
-            <ListItemText primary="Size" />
-            
+      {products_data.productsData[productIndex].details.dataset.map(
+        (value, index) => {
+          return (
+            <List>
+              <ListItem key={index} button onClick={() => handleClick(index)}>
+                <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
+                <ListItemText primary={value.type} />
+                {index === open ? <ExpandLess /> : <ExpandMore />}
+                {/* {open ? <ExpandLess /> : <ExpandMore />} */}
+              </ListItem>
+              <Collapse in={index === open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItem>
+                    <ListItemIcon />
+
+                    <ul>
+                      {value.details.map((subVal, index) => {
+                        return (
+                          <li>
+                            <ListItem>
+                              <ListItemText
+                                key={index}
+                                primary={subVal.name}
+                                secondary={`$ ${subVal.price.toFixed(2)}`}
+                              />
+                              <Box
+                                display="flex"
+                                flexDirection="row"
+                                bgcolor="transparent"
+                                justifyContent="flex-end"
+                                alignContent="center"
+                                marginLeft="40px"
+                                paddingLeft="20px"
+                              >
+                                <IconButton
+                                  disabled={subVal.quantity === 0}
+                                  onClick={() =>
+                                    (subVal.quantity = subVal.quantity - 1)
+                                  }
+                                >
+                                  <RemoveIcon color="primary" />
+                                </IconButton>
+                                <h3
+                                  style={{
+                                    textAlign: "center",
+                                    display: "flex",
+                                    alignSelf: "flex-end",
+                                    paddingBottom: "5px",
+                                  }}
+                                >
+                                  {subVal.quantity}
+                                </h3>
+                                <IconButton
+                                  onClick={() =>
+                                    (subVal.quantity = subVal.quantity + 1)
+                                  }
+                                >
+                                  <AddIcon color="primary" />
+                                </IconButton>
+                              </Box>
+                            </ListItem>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </ListItem>
+                </List>
+              </Collapse>
+            </List>
           );
-      })} */}
-      <ListItem button onClick={handleClick}>
-        <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
-        <ListItemText primary="Size" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem>
-            <ListItemIcon />
-            {/* <StarBorder /> */}
-            {/* </ListItemIcon> */}
-            <ul>
-              {DataS.map((size, index) => {
-                return (
-                  <li>
-                    <ListItem button className={classes.nested}>
-                      <ListItemText
-                        key={index}
-                        primary={size.name}
-                        secondary={`$ ${size.price}`}
-                      />
-                    </ListItem>
-                  </li>
-                );
-              })}
-            </ul>
-          </ListItem>
-        </List>
-      </Collapse>
-      <ListItem button onClick={handleClick}>
-        <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
-        <ListItemText primary="Sauce and Cheese" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem>
-            <ListItemIcon>{/* <StarBorder /> */}</ListItemIcon>
-            <ul>
-              {DataSauceCheese.map((sauceAndCheese, index) => {
-                return (
-                  <li>
-                    <ListItem button className={classes.nested}>
-                      <ListItemText
-                        key={index}
-                        primary={sauceAndCheese.name}
-                        secondary={`$ ${sauceAndCheese.price}`}
-                      />
-                    </ListItem>
-                  </li>
-                );
-              })}
-            </ul>
-          </ListItem>
-        </List>
-      </Collapse>
-      <ListItem button onClick={handleClick}>
-        <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
-        <ListItemText primary="Veg Toppings" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem>
-            <ListItemIcon>{/* <StarBorder /> */}</ListItemIcon>
-            <ul>
-              {DataVegTs.map((vegT, index) => {
-                return (
-                  <li>
-                    <ListItem button className={classes.nested}>
-                      <ListItemText
-                        key={index}
-                        primary={vegT.name}
-                        secondary={`$ ${vegT.price}`}
-                      />
-                    </ListItem>
-                  </li>
-                );
-              })}
-            </ul>
-          </ListItem>
-        </List>
-      </Collapse>
-      <ListItem button onClick={handleClick}>
-        <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
-        <ListItemText primary="Meat Toppings" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem>
-            <ListItemIcon>{/* <StarBorder /> */}</ListItemIcon>
-            <ul>
-              {DataMeatTs.map((meatTs, index) => {
-                return (
-                  <li>
-                    <ListItem button className={classes.nested}>
-                      <ListItemText
-                        key={index}
-                        primary={meatTs.name}
-                        secondary={`$ ${meatTs.price}`}
-                      />
-                    </ListItem>
-                  </li>
-                );
-              })}
-            </ul>
-          </ListItem>
-        </List>
-      </Collapse>
-      <ListItem button onClick={handleClick}>
-        <ListItemIcon>{/* <InboxIcon /> */}</ListItemIcon>
-        <ListItemText primary="Extra Flavour" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem>
-            <ListItemIcon>{/* <StarBorder /> */}</ListItemIcon>
-            <ul>
-              {DataExtraF.map((extraF, index) => {
-                return (
-                  <li>
-                    <ListItem button className={classes.nested}>
-                      <ListItemText
-                        key={index}
-                        primary={extraF.name}
-                        secondary={`$ ${extraF.price}`}
-                      />
-                    </ListItem>
-                  </li>
-                );
-              })}
-            </ul>
-          </ListItem>
-        </List>
-      </Collapse>
+        }
+      )}
     </List>
   );
-};
+});
 
 export default CustomizeList;

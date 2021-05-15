@@ -1,12 +1,6 @@
+import Cart from "../Cart/Index";
 import React from "react";
-import {
-  customizeSize,
-  SauceAndCheese,
-  VegToppings,
-  meatToppings,
-  extraFlavour,
-} from "../DropDown_Cust/Data";
-// import Data from "./Data";
+import { observer } from "mobx-react-lite";
 import {
   ProductContainer,
   ProductHeading,
@@ -20,13 +14,14 @@ import {
   ProductButton,
 } from "./ProductElements";
 import CustomizeList from "../DropDown_Cust/index";
+import { products_data } from "./Data";
 
-const Products = ({ heading, data }) => {
+const Products = observer(({ heading }) => {
   return (
-    <ProductContainer>
+    <ProductContainer id="product">
       <ProductHeading>{heading}</ProductHeading>
       <ProductWrapper>
-        {data.map((product, index) => {
+        {products_data.productsData.map((product, index) => {
           return (
             <ProductCard key={index}>
               <ProductImg src={product.img} alt={product.alt} />
@@ -34,22 +29,27 @@ const Products = ({ heading, data }) => {
                 <ProductTitle>{product.name}</ProductTitle>
                 <ProductDesc>{product.desc}</ProductDesc>
                 <ProductPrice>{product.price}</ProductPrice>
-                <CustomizeList
-                  DataS={customizeSize}
-                  DataSauceCheese={SauceAndCheese}
-                  DataVegTs={VegToppings}
-                  DataMeatTs={meatToppings}
-                  DataExtraF={extraFlavour}
-                />
-                <ProductButton>{product.button}</ProductButton>
+                <CustomizeList key={index} productIndex={index} />
               </ProductInfo>
             </ProductCard>
           );
         })}
+
         {/* <DropDownCust DataS={customizeSize} DataSauceCheese={SauceAndCheese} DataVegTs={VegToppings} DataMeatTs={meatToppings} DataExtraF={extraFlavour} /> */}
       </ProductWrapper>
+      <ProductButton
+        to="Cart"
+        smooth={true}
+        duration={500}
+        spy={true}
+        exact="true"
+        offset={40}
+      >
+        Go To Cart
+      </ProductButton>
+      <Cart />
     </ProductContainer>
   );
-};
+});
 
 export default Products;
