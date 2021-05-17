@@ -10,7 +10,7 @@ import {
 } from "./HeroElement";
 const Hero = () => {
   return (
-    <div>
+    <div id='Hero'>
       <HeroContainer>
         <Navbar />
         <HeroContent>
