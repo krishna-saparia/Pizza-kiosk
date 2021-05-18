@@ -122,7 +122,7 @@ const Cart = observer(() => {
                       .map((el, index) => (
                         <TableRow key={index}>
                           <TableCell hover role="checkbox">
-                            {el.name}
+                            {el.name}({value.type})
                           </TableCell>
                           <TableCell align="right" hover role="checkbox">
                             {el.quantity}
